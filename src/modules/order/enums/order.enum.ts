@@ -1,0 +1,15 @@
+export enum StatusOrderEnum {
+  PENDING = 'PENDING',
+  CANCELED = 'CANCELED',
+  APPROVED = 'APPROVED',
+  SENT = 'SENT'
+}
+
+export enum RoleOrderEnum {
+  STATUS_ALLOWED_CANCELLATION = 'STATUS_ALLOWED_CANCELLATION',
+  STATUS_ALLOWED_SEND = 'STATUS_ALLOWED_SEND'
+}
+
+export enum ConfigDefaultOrderEnum {
+  SALE_TYPE_DEFAULT = 'SALE_TYPE_DEFAULT'
+}

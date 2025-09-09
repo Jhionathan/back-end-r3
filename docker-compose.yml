@@ -1,0 +1,41 @@
+# version: '3.7'
+
+services:
+  back-end-r3-suprimentos:
+    container_name: back-end-r3-suprimentos
+    image: back-end-r3-suprimentos:1.0.0
+    build:
+      context: .
+      target: development
+    command:
+      - sh
+      - -c
+      - |
+        npm install
+        ${START_COMMAND}
+    ports:
+      - ${PORT}:3000
+      - 9229:9229
+    volumes:
+      - .:/usr/src/app
+      - ./package.json:/usr/src/package.json
+      - ./package-lock.json:/usr/src/package-lock.json
+    restart: unless-stopped
+    depends_on:
+      - back-end-r3-suprimentos_db
+  back-end-r3-suprimentos_db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=back-end-r3-suprimentos
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - back-end-r3-suprimentos_db_volume:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  back-end-r3-suprimentos_db_volume:
